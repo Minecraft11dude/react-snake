@@ -22,7 +22,7 @@ export default function Home() {
         y: 5,
     });
     const [snake, setSnake] = useState(snakeInittialPos);
-    const [direction, setDirection] = useState("LEFT");
+    let [direction, setDirection] = useState("LEFT");
 
     function renderBoard() {
         let cellarray = [];
@@ -78,5 +78,52 @@ export default function Home() {
             gameOver();
             return;
         }
+
+        let newSnake = [...snake];
+        if (direction = "UP") {
+            newSnake.unshift({x: newSnake[0].x - 1, y: newSnake[0].y});
+        }
+        if (direction = "DOWN") {
+            newSnake.unshift({x: newSnake[0].x + 1, y: newSnake[0].y});
+        }
+        if (direction = "LEFT") {
+            newSnake.unshift({x: newSnake[0].x, y: newSnake[0].y - 1});
+        }
+        if (direction = "RIGHT") {
+            newSnake.unshift({x: newSnake[0].x, y: newSnake[0].y + 1});
+        }
+
+
+        // check if snake has eaten food
+        if (newSnake[0].x === food.x && newSnake[0].y === food.y) {
+            setScore((sco) => sco + 1);
+            renderFood();
+        } else {
+            newSnake.pop();
+        }
+
+        setSnake(newSnake);
     }
+
+    function updateDirection(e) {
+        let key = e.code;
+
+        switch(key) {
+            case "arrowUp":
+                if (direction !== "DOWN") setdirection("UP");
+                break;
+            case "arrowDown":
+                if (direction !== "UP") setdirection("DOWN");
+                break;
+            case "arrowLeft":
+                if (direction !== "RIGHT") setdirection("LEFT");
+                break;
+            case "arrowRight":
+                if (direction !== "LEFT") setdirection("RIGHT");
+                break;
+        }
+    }
+
+    // handle effects
+     
 }
