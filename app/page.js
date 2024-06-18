@@ -125,5 +125,9 @@ export default function Home() {
     }
 
     // handle effects
-     
+     function handleKeyDown(e) {
+        updateDirection(e);
+    }
 }
+
+
